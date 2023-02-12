@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+    <style type="text/css">
+        .block1, input[type=text], input[type=password], input[type=submit], button {
+            font-weight: bold;
+            font-family: Verdana;
+            font-size: 12px;
+        }
+        p{
+            font-weight: bold;
+            font-family: Verdana;
+            text-align: center;
+            font-size: 20px;
+        }
+        .block1 {
+            width: 300px;
+            padding: 20px;
+            border: solid 2px black;
+            border-radius: 10px;
+            float: left;
+
+        }
+        .block2 {
+            width: 300px;
+            padding: 20px;
+            float: left;
+            position: relative;
+            top: 600px;
+            left: -340px;
+        }
+        button {
+            width: 100%;
+            background: grey;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 10px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: solid 1px black;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            width: 100%;
+            background: cadetblue;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="block1">
+    <p>Редактирование пользователя</p>
+    <form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+
+        <label for="name">Имя</label>
+        <input type="text"  th:field="*{name}" id="name"/>
+
+        <label for="sername">Фамилия</label>
+        <input type="text"  th:field="*{sername}" id="sername"/>
+
+        <label for="age">Возраст</label>
+        <input type="text"  th:field="*{age}" id="age"/>
+        <br>
+
+        <label for="username">Имя пользователя</label>
+        <input type="text" th:field="*{username}" id="username"/>
+        <br>
+
+        <label for="password">Пароль</label>
+        <input type="password" th:field="*{password}" id="password"/>
+        <br>
+
+
+        <label>Роли:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${roles}"
+                   th:text="${role.getName().replace('ROLE_','')}"
+                   th:value="${role.getId()}"
+                   th:field="*{role}"
+            />
+        </label>
+
+        <input type="submit" value="Изменить"/>
+    </form>
+</div>
+<div class="block2">
+    <br>
+    <button onclick="window.location.href = '/admin';">ᐊ Назад</button>
+</div>
+</body>
+</html>

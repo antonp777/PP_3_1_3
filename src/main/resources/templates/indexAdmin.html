@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+    <style>
+        .block1 {
+            width: 850px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th{
+            height: 30px;
+        }
+        tr{
+            height: 20px;
+            text-align: center;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        .update {
+            position: relative;
+            right: 35px;
+            top: 10px;
+        }
+        .delete {
+            position: relative;
+            left: 40px;
+            top: -11px;
+        }
+    </style>
+</head>
+<body>
+<h1>Список пользователей</h1>
+<div class="block1">
+    <table>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Логи</th>
+            <th>Роль</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getName()}">...</td>
+            <td th:text="${user.getSername()}">...</td>
+            <td th:text="${user.getAge()}">...</td>
+            <td th:text="${user.getUsername()}">...</td>
+            <td th:text="${{user.getRole()}}">...</td>
+            <td> <form class="update" th:method="GET" th:action="@{/admin/edit/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Изменить"/>
+                </form>
+                <form class="delete" th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <br>
+    <button onclick="window.location.href = '/admin/adduser';">Добавить пользователя</button>
+</div>
+<br>
+<form th:action="@{/user}" method="get">
+    <input type="submit" value = "Личные данные"/>
+</form>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value = "Выйти"/>
+</form>
+
+
+</body>
+</html>

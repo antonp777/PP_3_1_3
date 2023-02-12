@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница пользователя</title>
+    <style>
+        .block1 {
+            width: 200px;
+            font-family: Verdana;
+            font-size: 14px;
+        }
+        .name_row {
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th{
+            height: 30px;
+        }
+        tr{
+            height: 30px;
+            text-align: left;
+        }
+        table, th, td {
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Ваши данные</h1>
+<div class="block1">
+<table>
+    <tr>
+        <td class="name_row">Имя:</td>
+        <td th:text="${user.getName()}">...</td>
+    </tr>
+    <tr>
+        <td class="name_row">Фамилия:</td>
+        <td th:text="${user.getSername()}">...</td>
+    </tr>
+    <tr>
+        <td class="name_row">Возраст:</td>
+        <td th:text="${user.getAge()}">...</td>
+    </tr>
+    <tr>
+        <td class="name_row">Логин:</td>
+        <td th:text="${user.getUsername()}">...</td>
+    </tr>
+    <tr>
+        <td class="name_row">Роли:</td>
+        <td th:text="${{user.getRole()}}">...</td>
+    </tr>
+</table>
+</div>
+<br>
+<div th:each="role: ${user.getRole()}"
+            th:switch="${role.getName()}">
+    <form th:case = "'ROLE_ADMIN'" th:action="@{/admin}" method="get">
+        <input type="submit" value = "Список пользователей"/>
+    </form>
+</div>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value = "Выйти"/>
+</form>
+
+</body>
+</html>
